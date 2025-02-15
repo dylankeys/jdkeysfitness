@@ -22,13 +22,49 @@
         
         <div class="card align-middle">
             <div class="card-body">
-                <p class="booking-info"><i class="fa-regular fa-calendar-days"></i> Monday 17th Feb&emsp;<i class="fa-solid fa-clock"></i> 13:00 - 14:00&emsp;<i class="fa-solid fa-location-dot"></i> PureGym Coleraine</p><button type="button" class="btn btn-primary float-right">Book</button> 
+                <p class="booking-info"><i class="fa-regular fa-calendar-days"></i> Monday 17th Feb&emsp;<i class="fa-solid fa-clock"></i> 13:00 - 14:00&emsp;<i class="fa-solid fa-location-dot"></i> PureGym Coleraine</p><button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#bookingModal" data-booking="2025-02-17 14:00:00">Book</button> 
             </div>
         </div>
         &nbsp;
-        
-    </div>
+    
+        <!-- Modal -->
+        <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="bookingModalLabel">Session booking</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="booking-date" class="col-form-label">Session date/time</label>
+                                <input type="text" class="booking form-control" id="booking-date" name="booking-date" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="booking-name" class="col-form-label">Full name*</label>
+                                <input type="text" class="form-control" id="booking-name" name="booking-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="booking-email" class="col-form-label">Email address*</label>
+                                <input type="email" class="form-control" id="booking-email" name="booking-email" required>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Confirm booking</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
     <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Custom JS -->
+    <script src="custom.js"></script>
 </body>
 </html>
