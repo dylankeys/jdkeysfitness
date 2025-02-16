@@ -6,3 +6,20 @@ $('#bookingModal').on('show.bs.modal', function (event) {
     var modal = $(this)
     modal.find('.modal-body input.booking').val(booking)
   })
+
+var counter = 1;
+var dynamicInput = [];
+  
+function addInput(){
+  var newdiv = document.createElement('div');
+  dynamicInput[counter] = 'dynamicInput['+counter+']';
+  newdiv.id = dynamicInput[counter];
+  newdiv.innerHTML = "<br><div class='row'><div class='col'><input class='form-control' type='datetime-local' name='sessions[]'></div><div class='col'><button type='button' class='btn btn-primary' onClick='removeInput("+dynamicInput[counter]+");'>-</button></div></div>";
+  document.getElementById('session-inputs').appendChild(newdiv);
+  counter++;
+}
+    
+function removeInput(id){
+  var elem = document.getElementById(id);
+  return elem.parentNode.removeChild(elem);
+}

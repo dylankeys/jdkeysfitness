@@ -50,3 +50,11 @@ h2 {
 .jumbo {
     color: var(--brand-secondary);
 }
+
+.bg-body-tertiary {
+    background-color: var(--brand-secondary) !important;
+}
+
+.offcanvas {
+    background-color: var(--brand-secondary) !important;
+}
