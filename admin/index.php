@@ -1,3 +1,12 @@
+<?php
+    require_once(__DIR__ . '/../config.php');
+    require_once(__DIR__ . '/../db.php');
+
+    if (isset($_POST['sessions'])) {
+
+        header('Location: ' . $CFG->wwwroot . '/admin/add.php?success=1');
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +31,7 @@
             </button>
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">JDK Fitness</h5>
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">jdkeys<span style="color: #fff;">fitness</span></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
@@ -38,6 +47,33 @@
             </div>
         </div>
     </nav>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Session date</th>
+                <th scope="col">Session time</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $stmt = $db->prepare("SELECT `datetime` FROM sessions_available WHERE `datetime` > ?");
+            $stmt->bind_param("s", date('Y-m-d H:i:s', strtotime('midnight')));
+            $stmt->execute();
+        
+            $result = $stmt->get_result();
+            if($result->num_rows === 0) {
+                echo 'No upcoming sessions available';
+            }
+            else
+        
+            while($row = $result->fetch_assoc()) {
+                echo '<tr><td>'.date('l jS F Y', strtotime($row['datetime'])).'</td><td>'.date('H:i:s', strtotime($row['datetime'])).' - '.date('H:i:s', strtotime($row['datetime'] . '+ 1 hour')).'</td><td></td></tr>';
+            }
+            ?>
+        </tbody>
+    </table>
 
     <!-- Bootstrap JS -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
