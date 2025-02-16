@@ -2,13 +2,16 @@
     require_once(__DIR__ . '/config.php');
     require_once(__DIR__ . '/db.php');
 
-    if (isset($_GET['delete'])) {
-        $stmt = $db->prepare("DELETE FROM sessions_available WHERE id = ?");
-        $stmt->bind_param("s", $_GET['delete']);
+    if (isset($_POST['booking-date']) && isset($_POST['booking-name']) && isset($_POST['booking-email'])) {
+        $stmt = $db->prepare("INSERT INTO sessions_booked (`session`, fullname, email) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $_POST['booking-date'], $_POST['booking-name'], $_POST['booking-email']);
         $stmt->execute();
         $stmt->close();
 
         header('Location: ' . $CFG->wwwroot . '/?success=1');
+    }
+    else {
+        header('Location: ' . $CFG->wwwroot . '/?error=1');
     }
 ?>
 <!DOCTYPE html>
@@ -32,6 +35,21 @@
             <img class="rounded-circle mx-auto d-block" alt="judah keys" src="pix/judahkeys.jpg" style="width:12.5em; padding-bottom: 10px;">
             <h2>Judah Keys</h2>
         </div>
+
+        <?php
+		if(isset($_GET['success'])){
+			echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+  					<strong>Success!</strong> Your session has now been booked. I look forward to seeing you soon! 
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			    </div>';
+		}
+        elseif(isset($_GET['error'])) {
+            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  					<strong>Oops, something went wrong!</strong> We encountered an error when attempting to book your session. If this persists, please contact me directly. Thank you!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			    </div>';
+        }
+		?>
         
         <?php
         $stmt = $db->prepare("SELECT * FROM sessions_available WHERE `datetime` > ?");
@@ -63,7 +81,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form method="post" action="index.php">
                             <div class="form-group">
                                 <label for="booking-date" class="col-form-label">Session date/time</label>
                                 <input type="text" class="booking form-control" id="booking-date" name="booking-date" disabled>
