@@ -1,3 +1,18 @@
+<?php
+    require_once(__DIR__ . '/../config.php');
+    require_once(__DIR__ . '/../db.php');
+
+    if (isset($_POST['sessions'])) {
+        foreach ($_POST['sessions'] as $session) {
+            $stmt = $db->prepare("INSERT INTO sessions_available (`datetime`) VALUES (?)");
+            $stmt->bind_param("s", $session);
+            $stmt->execute();
+            $stmt->close();
+        }
+
+        header('Location: ' . $CFG->wwwroot . '/admin/add.php?success=1');
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,6 +55,14 @@
     </nav>
 
     <div class="container">
+        <?php
+		if(isset($_GET['success'])){
+			echo '<div class="alert alert-success" role="alert">
+  					<strong>Success!</strong> New sessions added and available for booking.
+			    </div>';
+		}
+		?>
+
         <h3>Add sessions</h3>
         <form method="POST">
             <div id="session-inputs">
