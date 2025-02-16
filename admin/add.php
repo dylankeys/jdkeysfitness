@@ -57,8 +57,9 @@
     <div class="container">
         <?php
 		if(isset($_GET['success'])){
-			echo '<div class="alert alert-success" role="alert">
+			echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
   					<strong>Success!</strong> New sessions added and available for booking.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			    </div>';
 		}
 		?>

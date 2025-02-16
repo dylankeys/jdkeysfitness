@@ -2,9 +2,13 @@
     require_once(__DIR__ . '/../config.php');
     require_once(__DIR__ . '/../db.php');
 
-    if (isset($_POST['sessions'])) {
+    if (isset($_GET['delete'])) {
+        $stmt = $db->prepare("DELETE FROM sessions_available WHERE id = ?");
+        $stmt->bind_param("s", $_GET['delete']);
+        $stmt->execute();
+        $stmt->close();
 
-        header('Location: ' . $CFG->wwwroot . '/admin/add.php?success=1');
+        header('Location: ' . $CFG->wwwroot . '/admin/index.php?success=1');
     }
 ?>
 <!DOCTYPE html>
@@ -49,6 +53,15 @@
     </nav>
 
     <div class="container">
+        <?php
+		if(isset($_GET['success'])){
+			echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+  					<strong>Success!</strong> Session deleted.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			    </div>';
+		}
+		?>
+
         <table class="table table-dark table-hover">
             <thead>
                 <tr>
@@ -59,7 +72,7 @@
             </thead>
             <tbody>
                 <?php
-                $stmt = $db->prepare("SELECT `datetime` FROM sessions_available WHERE `datetime` > ?");
+                $stmt = $db->prepare("SELECT * FROM sessions_available WHERE `datetime` > ?");
                 $stmt->bind_param("s", date('Y-m-d H:i:s', strtotime('midnight')));
                 $stmt->execute();
             
@@ -70,7 +83,7 @@
                 else
             
                 while($row = $result->fetch_assoc()) {
-                    echo '<tr><td>'.date('l jS F Y', strtotime($row['datetime'])).'</td><td>'.date('H:i:s', strtotime($row['datetime'])).' - '.date('H:i:s', strtotime($row['datetime'] . '+ 1 hour')).'</td><td></td></tr>';
+                    echo '<tr><td>'.date('l jS F Y', strtotime($row['datetime'])).'</td><td>'.date('H:i', strtotime($row['datetime'])).' - '.date('H:i', strtotime($row['datetime'] . '+ 1 hour')).'</td><td><a href="index.php?delete='.$row['id'].'"><i class="fa-solid fa-xmark"></i></a></td></tr>';
                 }
                 ?>
             </tbody>
