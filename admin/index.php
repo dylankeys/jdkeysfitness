@@ -44,7 +44,7 @@
                             <a class="nav-link active" aria-current="page" href="#">Current bookings</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="add.html">Add sessions</a>
+                            <a class="nav-link" href="add.php">Add sessions</a>
                         </li>
                     </ul>
                 </div>       
