@@ -10,9 +10,7 @@
 
         header('Location: ' . $CFG->wwwroot . '/?success=1');
     }
-    else {
-        header('Location: ' . $CFG->wwwroot . '/?error=1');
-    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
