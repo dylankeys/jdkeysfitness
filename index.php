@@ -8,6 +8,11 @@
         $stmt->execute();
         $stmt->close();
 
+        $stmt = $db->prepare("DELETE FROM sessions_available WHERE `datetime` = ?");
+        $stmt->bind_param("s", date('Y-m-d H:i:s', strtotime($_POST['booking-date'])));
+        $stmt->execute();
+        $stmt->close();
+
         header('Location: ' . $CFG->wwwroot . '/?success=1');
     }
     
@@ -50,7 +55,7 @@
 		?>
         
         <?php
-        $stmt = $db->prepare("SELECT * FROM sessions_available WHERE `datetime` > ?");
+        $stmt = $db->prepare("SELECT * FROM sessions_available WHERE `datetime` > ? ORDER BY `datetime` ASC");
         $stmt->bind_param("s", date('Y-m-d H:i:s', strtotime('midnight')));
         $stmt->execute();
     
