@@ -44,7 +44,6 @@
         }
         else {
             while($row = $result->fetch_assoc()) {
-                echo '<tr><td></td><td></td><td><a href="index.php?delete='.$row['id'].'"><i class="fa-solid fa-xmark"></i></a></td></tr>';
                 echo '<div class="card align-middle">
                         <div class="card-body">
                             <p class="booking-info"><i class="fa-regular fa-calendar-days"></i> '.date('l jS F Y', strtotime($row['datetime'])).'&emsp;<i class="fa-solid fa-clock"></i> '.date('H:i', strtotime($row['datetime'])).' - '.date('H:i', strtotime($row['datetime'] . '+ 1 hour')).'&emsp;<i class="fa-solid fa-location-dot"></i> PureGym Coleraine</p><button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#bookingModal" data-booking="'.date('l jS F H:i', strtotime($row['datetime'])).'">Book</button> 
