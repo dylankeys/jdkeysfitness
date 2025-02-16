@@ -4,7 +4,7 @@
 
     if (isset($_POST['booking-date']) && isset($_POST['booking-name']) && isset($_POST['booking-email'])) {
         $stmt = $db->prepare("INSERT INTO sessions_booked (`session`, fullname, email) VALUES (?, ?, ?)");
-        $stmt->bind_param("iss", date('Y-m-d H:i:s', strtotime($_POST['booking-date'])), $_POST['booking-name'], $_POST['booking-email']);
+        $stmt->bind_param("sss", date('Y-m-d H:i:s', strtotime($_POST['booking-date'])), $_POST['booking-name'], $_POST['booking-email']);
         $stmt->execute();
         $stmt->close();
 
