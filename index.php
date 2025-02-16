@@ -62,7 +62,7 @@
             while($row = $result->fetch_assoc()) {
                 echo '<div class="card align-middle">
                         <div class="card-body">
-                            <p class="booking-info"><i class="fa-regular fa-calendar-days"></i> '.date('l jS F', strtotime($row['datetime'])).'&emsp;<i class="fa-solid fa-clock"></i> '.date('H:i', strtotime($row['datetime'])).' - '.date('H:i', strtotime($row['datetime'] . '+ 1 hour')).'&emsp;<i class="fa-solid fa-location-dot"></i> PureGym Coleraine</p><button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#bookingModal" data-booking="'.date('l jS F H:i', strtotime($row['datetime'])).'">Book</button> 
+                            <p class="booking-info"><i class="fa-regular fa-calendar-days"></i> '.date('l jS F', strtotime($row['datetime'])).'&emsp;<i class="fa-solid fa-clock"></i> '.date('H:i', strtotime($row['datetime'])).' - '.date('H:i', strtotime($row['datetime'] . '+ 1 hour')).'&emsp;<i class="fa-solid fa-location-dot"></i> PureGym Coleraine</p><button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#bookingModal" data-booking="'.date('l jS F Y H:i', strtotime($row['datetime'])).'">Book</button> 
                         </div>
                     </div>
                     &nbsp;';
