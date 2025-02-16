@@ -82,7 +82,7 @@
                         <form method="post" action="index.php">
                             <div class="form-group">
                                 <label for="booking-date" class="col-form-label">Session date/time</label>
-                                <input type="text" class="booking form-control" id="booking-date" name="booking-date" disabled>
+                                <input type="text" class="booking form-control" id="booking-date" name="booking-date" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="booking-name" class="col-form-label">Full name*</label>
