@@ -1,3 +1,16 @@
+<?php
+    require_once(__DIR__ . '/config.php');
+    require_once(__DIR__ . '/db.php');
+
+    if (isset($_GET['delete'])) {
+        $stmt = $db->prepare("DELETE FROM sessions_available WHERE id = ?");
+        $stmt->bind_param("s", $_GET['delete']);
+        $stmt->execute();
+        $stmt->close();
+
+        header('Location: ' . $CFG->wwwroot . '/?success=1');
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,12 +33,27 @@
             <h2>Judah Keys</h2>
         </div>
         
-        <div class="card align-middle">
-            <div class="card-body">
-                <p class="booking-info"><i class="fa-regular fa-calendar-days"></i> Monday 17th Feb&emsp;<i class="fa-solid fa-clock"></i> 13:00 - 14:00&emsp;<i class="fa-solid fa-location-dot"></i> PureGym Coleraine</p><button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#bookingModal" data-booking="2025-02-17 14:00:00">Book</button> 
-            </div>
-        </div>
-        &nbsp;
+        <?php
+        $stmt = $db->prepare("SELECT * FROM sessions_available WHERE `datetime` > ?");
+        $stmt->bind_param("s", date('Y-m-d H:i:s', strtotime('midnight')));
+        $stmt->execute();
+    
+        $result = $stmt->get_result();
+        if($result->num_rows === 0) {
+            echo 'No upcoming sessions available';
+        }
+        else {
+            while($row = $result->fetch_assoc()) {
+                echo '<tr><td></td><td></td><td><a href="index.php?delete='.$row['id'].'"><i class="fa-solid fa-xmark"></i></a></td></tr>';
+                echo '<div class="card align-middle">
+                        <div class="card-body">
+                            <p class="booking-info"><i class="fa-regular fa-calendar-days"></i> '.date('l jS F Y', strtotime($row['datetime'])).'&emsp;<i class="fa-solid fa-clock"></i> '.date('H:i', strtotime($row['datetime'])).' - '.date('H:i', strtotime($row['datetime'] . '+ 1 hour')).'&emsp;<i class="fa-solid fa-location-dot"></i> PureGym Coleraine</p><button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#bookingModal" data-booking="'.date('l jS F H:i', strtotime($row['datetime'])).'">Book</button> 
+                        </div>
+                    </div>
+                    &nbsp;';
+            }
+        }
+        ?>
     
         <!-- Modal -->
         <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
