@@ -2,6 +2,13 @@
     require_once(__DIR__ . '/../config.php');
     require_once(__DIR__ . '/../db.php');
 
+    if(!isset($_SESSION['oauth2_email'])) {
+        header('Location: ' . $CFG->wwwroot . '/auth/oauth2callback.php');
+    }
+    elseif (!in_array($_SESSION['oauth2_email'], $CFG->admins)) {
+        header('Location: ' . $CFG->wwwroot . '/error.html');
+    }
+
     if (isset($_GET['delete'])) {
         $stmt = $db->prepare("DELETE FROM sessions_available WHERE id = ?");
         $stmt->bind_param("s", $_GET['delete']);

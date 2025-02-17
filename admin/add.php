@@ -2,6 +2,13 @@
     require_once(__DIR__ . '/../config.php');
     require_once(__DIR__ . '/../db.php');
 
+    if(!isset($_SESSION['oauth2_email'])) {
+        header('Location: ' . $CFG->wwwroot . '/auth/oauth2callback.php');
+    }
+    elseif (!in_array($_SESSION['oauth2_email'], $CFG->admins)) {
+        header('Location: ' . $CFG->wwwroot . '/error.html');
+    }
+
     if (isset($_POST['sessions'])) {
         foreach ($_POST['sessions'] as $session) {
             $stmt = $db->prepare("INSERT INTO sessions_available (`datetime`) VALUES (?)");
