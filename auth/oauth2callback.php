@@ -25,7 +25,7 @@ else {
 
     if (!in_array($_SESSION['oauth2_email'], $CFG->admins)) {
 
-        header('Location: ' . $redirect_uri . '/error.html');
+        header('Location: ' . $CFG->wwwroot . '/error.html');
     }
     else {
         header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
