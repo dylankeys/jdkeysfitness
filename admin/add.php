@@ -2,6 +2,8 @@
     require_once(__DIR__ . '/../config.php');
     require_once(__DIR__ . '/../db.php');
 
+    session_start();
+
     if(!isset($_SESSION['oauth2_email'])) {
         header('Location: ' . $CFG->wwwroot . '/auth/oauth2callback.php');
     }
