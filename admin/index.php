@@ -12,7 +12,7 @@
     }
 
     if (isset($_GET['delete'])) {
-        $stmt = $db->prepare("DELETE FROM sessions_available WHERE id = ?");
+        $stmt = $db->prepare("DELETE FROM sessions_booked WHERE id = ?");
         $stmt->bind_param("s", $_GET['delete']);
         $stmt->execute();
         $stmt->close();
@@ -50,7 +50,10 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Available sessions</a>
+                            <a class="nav-link active" aria-current="page" href="../admin/">Booked sessions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="view.php">View sessions</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="add.php">Add sessions</a>
@@ -74,25 +77,26 @@
         <table class="table table-dark table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Session date</th>
-                    <th scope="col">Session time</th>
+                    <th scope="col">Full name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Session</th>
                     <th scope="col">Options</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $stmt = $db->prepare("SELECT * FROM sessions_available WHERE `datetime` > ?");
+                $stmt = $db->prepare("SELECT * FROM sessions_booked WHERE `session` > ?");
                 $stmt->bind_param("s", date('Y-m-d H:i:s', strtotime('midnight')));
                 $stmt->execute();
             
                 $result = $stmt->get_result();
                 if($result->num_rows === 0) {
-                    echo 'No upcoming sessions available';
+                    echo 'No upcoming sessions';
                 }
                 else
             
                 while($row = $result->fetch_assoc()) {
-                    echo '<tr><td>'.date('l jS F Y', strtotime($row['datetime'])).'</td><td>'.date('H:i', strtotime($row['datetime'])).' - '.date('H:i', strtotime($row['datetime'] . '+ 1 hour')).'</td><td><a href="index.php?delete='.$row['id'].'"><i class="fa-solid fa-xmark"></i></a></td></tr>';
+                    echo '<tr><td>'.$row['fullname'].'</td><td>'.$row['email'].'</td><td>'.date('l jS F H:i', strtotime($row['session'])).'</td><td><a href="index.php?delete='.$row['id'].'"><i class="fa-solid fa-xmark"></i></a></td></tr>';
                 }
                 ?>
             </tbody>

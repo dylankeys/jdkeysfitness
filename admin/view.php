@@ -11,15 +11,13 @@
         header('Location: ' . $CFG->wwwroot . '/error.html');
     }
 
-    if (isset($_POST['sessions'])) {
-        foreach ($_POST['sessions'] as $session) {
-            $stmt = $db->prepare("INSERT INTO sessions_available (`datetime`) VALUES (?)");
-            $stmt->bind_param("s", $session);
-            $stmt->execute();
-            $stmt->close();
-        }
+    if (isset($_GET['delete'])) {
+        $stmt = $db->prepare("DELETE FROM sessions_available WHERE id = ?");
+        $stmt->bind_param("s", $_GET['delete']);
+        $stmt->execute();
+        $stmt->close();
 
-        header('Location: ' . $CFG->wwwroot . '/admin/add.php?success=1');
+        header('Location: ' . $CFG->wwwroot . '/admin/index.php?success=1');
     }
 ?>
 <!DOCTYPE html>
@@ -55,10 +53,10 @@
                             <a class="nav-link" href="../admin/">Booked sessions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="view.php">View sessions</a>
+                            <a class="nav-link active" aria-current="page" href="view.php">View sessions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="add.php">Add sessions</a>
+                            <a class="nav-link" href="add.php">Add sessions</a>
                         </li>
                     </ul>
                 </div>       
@@ -70,35 +68,41 @@
         <?php
 		if(isset($_GET['success'])){
 			echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-  					<strong>Success!</strong> New sessions added and available for booking.
+  					<strong>Success!</strong> Session deleted.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			    </div>';
 		}
 		?>
 
-        <h3>Add sessions</h3>
-        <form method="POST">
-            <div id="session-inputs">
-                <div id="dynamicInput[0]">
-                    <div class="row">
-                        <div class="col">
-                            <input class="form-control" type="datetime-local" name="sessions[]">
-                        </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-primary" onClick="addInput();">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <button type="submit" class="btn btn-primary">Add sessions</button>
-        </form>
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Session date</th>
+                    <th scope="col">Session time</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $stmt = $db->prepare("SELECT * FROM sessions_available WHERE `datetime` > ?");
+                $stmt->bind_param("s", date('Y-m-d H:i:s', strtotime('midnight')));
+                $stmt->execute();
+            
+                $result = $stmt->get_result();
+                if($result->num_rows === 0) {
+                    echo 'No upcoming sessions available';
+                }
+                else
+            
+                while($row = $result->fetch_assoc()) {
+                    echo '<tr><td>'.date('l jS F Y', strtotime($row['datetime'])).'</td><td>'.date('H:i', strtotime($row['datetime'])).' - '.date('H:i', strtotime($row['datetime'] . '+ 1 hour')).'</td><td><a href="index.php?delete='.$row['id'].'"><i class="fa-solid fa-xmark"></i></a></td></tr>';
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <!-- Custom JS -->
-    <script src="../custom.js"></script>
 </body>
 </html>
