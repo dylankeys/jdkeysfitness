@@ -47,10 +47,6 @@ h2 {
     --bs-btn-disabled-border-color: var(--brand-secondary) !important;
 }
 
-.jumbo {
-    color: var(--brand-secondary);
-}
-
 .bg-body-tertiary {
     background-color: var(--brand-secondary) !important;
 }
