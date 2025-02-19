@@ -49,10 +49,10 @@ $html_body = '<!DOCTYPE html>
  <!-- Made with Postcards Email Builder by Designmodo -->
  <!--[if !mso]><!-- -->
  <style>
- @font-face { font-family: "Fira Sans"; font-style: normal; font-weight: 300; font-display: swap; src: local("Fira Sans Light"), local("FiraSans-Light"), url(https://fonts.gstatic.com/s/firasans/v10/va9B4kDNxMZdWfMOD5VnPKreSxf6Xl7Gl3LX.woff2) format("woff2"); unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
-         @font-face { font-family: "Fira Sans"; font-style: normal; font-weight: 300; font-display: swap; src: local("Fira Sans Light"), local("FiraSans-Light"), url(https://fonts.gstatic.com/s/firasans/v10/va9B4kDNxMZdWfMOD5VnPKreQhf6Xl7Gl3LX.woff2) format("woff2"); unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
-         @font-face { font-family: "Fira Sans"; font-style: normal; font-weight: 300; font-display: swap; src: local("Fira Sans Light"), local("FiraSans-Light"), url(https://fonts.gstatic.com/s/firasans/v10/va9B4kDNxMZdWfMOD5VnPKreSBf6Xl7Gl3LX.woff2) format("woff2"); unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-         @font-face { font-family: "Fira Sans"; font-style: normal; font-weight: 300; font-display: swap; src: local("Fira Sans Light"), local("FiraSans-Light"), url(https://fonts.gstatic.com/s/firasans/v10/va9B4kDNxMZdWfMOD5VnPKreRhf6Xl7Glw.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+ @font-face { font-family: Arial, Helvetica, sans-serif !important; font-style: normal; font-weight: 300; unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+         @font-face { font-family: Arial, Helvetica, sans-serif !important; font-style: normal; font-weight: 300; unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+         @font-face { font-family: Arial, Helvetica, sans-serif !important; font-style: normal; font-weight: 300; unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+         @font-face { font-family: Arial, Helvetica, sans-serif !important; font-style: normal; font-weight: 300; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
  </style>
  <!--<![endif]-->
  <style>
@@ -113,7 +113,7 @@ $html_body = '<!DOCTYPE html>
  </style>
  <!--[if !mso]><!-- -->
  <style>
- @font-face { font-family: "Fira Sans"; font-style: normal; font-weight: 400; src: url("https://fonts.gstatic.com/s/firasans/v17/va9E4kDNxMZdWfMOD5VvmYjN.woff") format("woff"), url("https://fonts.gstatic.com/s/firasans/v17/va9E4kDNxMZdWfMOD5VvmYjL.woff2") format("woff2"); } @font-face { font-family: "Fira Sans"; font-style: normal; font-weight: 500; src: url("https://fonts.gstatic.com/s/firasans/v17/va9B4kDNxMZdWfMOD5VnZKveSBf8.woff") format("woff"), url("https://fonts.gstatic.com/s/firasans/v17/va9B4kDNxMZdWfMOD5VnZKveSBf6.woff2") format("woff2"); } @font-face { font-family: "Fira Sans"; font-style: normal; font-weight: 300; src: url("https://fonts.gstatic.com/s/firasans/v17/va9B4kDNxMZdWfMOD5VnPKreSBf8.woff") format("woff"), url("https://fonts.gstatic.com/s/firasans/v17/va9B4kDNxMZdWfMOD5VnPKreSBf6.woff2") format("woff2"); }
+ @font-face { font-family: Arial, Helvetica, sans-serif !important; font-style: normal; font-weight: 400; }
  </style>
  <!--<![endif]-->
  <!--[if mso]>
@@ -211,20 +211,6 @@ $html_body = '<!DOCTYPE html>
                </td>
               </tr>
              </table>
-            </td>
-           </tr>
-          </table>
-         </td>
-        </tr>
-        <tr>
-         <td>
-          <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
-           <tr>
-            <td align="center" valign="top" style="padding-top: 20px; padding-bottom: 20px; vertical-align: top;">
-             <a href="https://postcards.email/?uid=MjkyNjQ2&type=footer" target="_blank" style="text-decoration: none; overflow: hidden; border-radius: 2px; display: inline-block;">
-              <img src="https://cloudfilesdm.com/postcards/promo-footer-dark.jpg" width="198" height="46" alt="Made with (o -) postcards" style="width: 198px; height: auto; margin: 0 auto; border: 0; outline: 0; line-height: 100%; -ms-interpolation-mode: bicubic; vertical-align: top;">
-             </a>
-             <img src="https://api-postcards.designmodo.com/tracking/mail/promo?uid=MjkyNjQ2" width="1" height="1" alt="" style="display:none; width: 1px; height: 1px;">
             </td>
            </tr>
           </table>
