@@ -14,7 +14,7 @@
         $stmt->execute();
         $stmt->close();
 
-        send_booking_confirmation(date('l jS F H:i', strtotime($_POST['booking-date'])));
+        send_booking_confirmation($_POST['booking-email'], date('l jS F H:i', strtotime($_POST['booking-date'])));
 
         header('Location: ' . $CFG->wwwroot . '/?success=1');
     }

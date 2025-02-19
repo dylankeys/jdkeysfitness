@@ -6,7 +6,7 @@ require 'vendor/autoload.php';
 use Aws\Ses\SesClient;
 use Aws\Exception\AwsException;
 
-function send_booking_confirmation($booking):void {
+function send_booking_confirmation($booking_email, $booking):void {
     require 'config.php';
 
     $credentials = new Aws\Credentials\Credentials($CFG->aws_key, $CFG->aws_secret);
@@ -24,9 +24,7 @@ function send_booking_confirmation($booking):void {
     // This address must be verified with Amazon SES.
     $sender_email = 'bookings@jdkeysfitness.com';
 
-    // Replace these sample addresses with the addresses of your recipients. If
-    // your account is still in the sandbox, these addresses must be verified.
-    $recipient_emails = ['dylankeys@btinternet.com'];
+    $recipient_emails = array($booking_email);
 
     // Specify a configuration set. If you do not want to use a configuration
     // set, comment the following variable, and the
