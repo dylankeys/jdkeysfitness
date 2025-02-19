@@ -260,7 +260,3 @@ function send_booking_confirmation($booking):void {
         echo "\n";
     }
 }
-
-$booking = 'Wednesday 19th February 14:00';
-
-send_booking_confirmation($booking);

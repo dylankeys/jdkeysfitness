@@ -1,6 +1,7 @@
 <?php
     require_once(__DIR__ . '/config.php');
     require_once(__DIR__ . '/db.php');
+    require_once(__DIR__ . '/email.php');
 
     if (isset($_POST['booking-date']) && isset($_POST['booking-name']) && isset($_POST['booking-email'])) {
         $stmt = $db->prepare("INSERT INTO sessions_booked (`session`, fullname, email) VALUES (?, ?, ?)");
@@ -12,6 +13,8 @@
         $stmt->bind_param("s", date('Y-m-d H:i:s', strtotime($_POST['booking-date'])));
         $stmt->execute();
         $stmt->close();
+
+        send_booking_confirmation(date('l jS F H:i', strtotime($_POST['booking-date'])));
 
         header('Location: ' . $CFG->wwwroot . '/?success=1');
     }
