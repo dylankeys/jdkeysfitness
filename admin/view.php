@@ -17,7 +17,7 @@
         $stmt->execute();
         $stmt->close();
 
-        header('Location: ' . $CFG->wwwroot . '/admin/index.php?success=1');
+        header('Location: ' . $CFG->wwwroot . '/admin/view.php?success=1');
     }
 ?>
 <!DOCTYPE html>
@@ -95,7 +95,7 @@
                 else
             
                 while($row = $result->fetch_assoc()) {
-                    echo '<tr><td>'.date('l jS F Y', strtotime($row['datetime'])).'</td><td>'.date('H:i', strtotime($row['datetime'])).' - '.date('H:i', strtotime($row['datetime'] . '+ 1 hour')).'</td><td><a href="index.php?delete='.$row['id'].'"><i class="fa-solid fa-xmark"></i></a></td></tr>';
+                    echo '<tr><td>'.date('l jS F Y', strtotime($row['datetime'])).'</td><td>'.date('H:i', strtotime($row['datetime'])).' - '.date('H:i', strtotime($row['datetime'] . '+ 1 hour')).'</td><td><a href="view.php?delete='.$row['id'].'"><i class="fa-solid fa-xmark"></i></a></td></tr>';
                 }
                 ?>
             </tbody>
